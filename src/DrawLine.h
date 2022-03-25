@@ -6,7 +6,7 @@ class DrawLine
 public:
 	DrawLine();
 	~DrawLine();
-	void setup(ofVec2f start, ofVec2f end);
+	void setPos(ofVec2f start, ofVec2f end);
 	void setColor(ofColor color);
 	void draw();
 

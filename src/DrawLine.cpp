@@ -9,12 +9,13 @@ DrawLine::~DrawLine() {
 
 }
 
-void DrawLine::setup(ofVec2f start, ofVec2f end){
-
+void DrawLine::setPos(ofVec2f start, ofVec2f end){
+	startPos = start;
+	endPos = end;
 }
 
 void DrawLine::setColor(ofColor color) {
-
+	this->color = color;
 }
 
 void DrawLine::draw() {

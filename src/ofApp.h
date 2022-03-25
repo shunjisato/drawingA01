@@ -32,6 +32,11 @@ class ofApp : public ofBaseApp{
 		ofParameter<ofColor> bgColor;
 		void updateBGColor(ofColor &color);
 
+		ofParameterGroup params;
+		ofParameter<float> timeScalePos;
+		ofParameter<float> timeScaleColor;
+
+
 		vector<DrawLine> lines;
 
 		void capture();

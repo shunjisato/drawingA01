@@ -12,8 +12,10 @@ void ofApp::setup(){
 	general.add(fps.set("fps", "fps"));
 	general.add(isDrawGui.set("isDrawGui", true));
 	general.add(bgColor.set("bgColor", ofColor(0, 0, 0), ofColor(0, 0, 0), ofColor(255, 255, 255)));
+	params.add(timeScalePos.set("time Scale Pos", 0.1, 0, 10));
+	params.add(timeScaleColor.set("time Scale Color", 0.1, 0, 10));
 	gui.add(general);
-
+	gui.add(params);
 	bgColor.addListener(this, &ofApp::updateBGColor);
 
 	for (int i = 0; i < LINE_NUM; i++) {
@@ -25,6 +27,26 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	fps = ofToString(ofGetFrameRate(), 2);
+	for (int i = 0; i < LINE_NUM; i++) {
+		// pos
+		ofVec2f startPos, endPos;
+		startPos.x = sin(i * 0.1 + ofGetElapsedTimef() * timeScalePos);
+		startPos.x *= startPos.x * ofGetWidth();
+		startPos.y = sin(i * 0.3 + ofGetElapsedTimef() * timeScalePos);
+		startPos.y *= startPos.y * ofGetHeight();
+		endPos.x = sin(i * 0.6 + ofGetElapsedTimef() * timeScalePos);
+		endPos.y *= startPos.y * ofGetWidth();
+		endPos.y = sin(i * 0.9 + ofGetElapsedTimef() * timeScalePos);
+		endPos.y *= startPos.y * ofGetHeight();
+		lines[i].setPos(startPos, endPos);
+		//ofLogNotice() << startPos << ", " << endPos;
+		
+		// color
+		float r = sin(i * 0.1 + ofGetElapsedTimef() * timeScaleColor) * 55.0 + 200;
+		float g = sin(0 + ofGetElapsedTimef() * timeScaleColor) * 55.0 + 200;
+		float b = sin(i * 0.1 + ofGetElapsedTimef() * timeScaleColor) * 55.0 + 200;
+		lines[i].setColor(ofColor(r, g, b, 255));
+	}
 }
 
 //--------------------------------------------------------------
