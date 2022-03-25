@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "DrawLine.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,6 +23,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+	private:
 		ofJson config;
 		ofxPanel gui;
 		ofParameterGroup general;
@@ -29,4 +31,8 @@ class ofApp : public ofBaseApp{
 		ofParameter<bool> isDrawGui;
 		ofParameter<ofColor> bgColor;
 		void updateBGColor(ofColor &color);
+
+		vector<DrawLine> lines;
+
+		void capture();
 };

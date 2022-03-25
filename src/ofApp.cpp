@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#define LINE_NUM 1000
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -14,21 +15,41 @@ void ofApp::setup(){
 	gui.add(general);
 
 	bgColor.addListener(this, &ofApp::updateBGColor);
+
+	for (int i = 0; i < LINE_NUM; i++) {
+		DrawLine line;
+		lines.push_back(line);
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	fps = ofToString(ofGetFrameRate(), 2);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	gui.draw();
+	for (auto &line : lines) {
+		line.draw();
+	}
+
+	if(isDrawGui)
+		gui.draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	switch (key)
+	{
+	case 'g':
+		isDrawGui = !isDrawGui;
+		break;
+	case 'c':
+		capture();
+		break;
+	default:
+		break;
+	}
 }
 
 //--------------------------------------------------------------
@@ -85,3 +106,12 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 void ofApp::updateBGColor(ofColor &color) {
 	ofSetBackgroundColor(color);
 }
+
+void ofApp::capture() {
+	ofImage img;
+	string name = "img/A01-" + ofGetTimestampString("%H-%M-%S") + ".png";
+	img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
+	img.save(name);
+	ofLogNotice("capture") << name;
+}
+
